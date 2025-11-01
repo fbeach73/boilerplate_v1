@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { UserProfile } from "@/components/auth/user-profile";
 import { ModeToggle } from "./ui/mode-toggle";
-import { Bot } from "lucide-react";
+import Image from "next/image";
 
 export function SiteHeader() {
   return (
@@ -12,11 +12,9 @@ export function SiteHeader() {
             href="/"
             className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
           >
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10">
-              <Bot className="h-5 w-5" />
-            </div>
+            <Image src="/fb-logo.webp" alt="Freddybeach.com" width={32} height={32} className="rounded-lg" />
             <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              Starter Kit
+              Freddybeach.com
             </span>
           </Link>
         </h1>

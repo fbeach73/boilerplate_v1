@@ -18,11 +18,11 @@ export default function Home() {
               <Bot className="h-7 w-7 text-primary" />
             </div>
             <h1 className="text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent">
-              Starter Kit
+              Freddybeach.com
             </h1>
           </div>
           <h2 className="text-2xl font-semibold text-muted-foreground">
-            Complete Boilerplate for AI Applications
+            Fredericton New Brunswick's Premium Automation and AI Services Provider
           </h2>
           <p className="text-xl text-muted-foreground">
             A complete agentic coding boilerplate with authentication, database, AI

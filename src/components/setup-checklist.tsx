@@ -45,6 +45,7 @@ export function SetupChecklist() {
   const [data, setData] = useState<DiagnosticsResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   async function load() {
     setLoading(true);
@@ -62,6 +63,7 @@ export function SetupChecklist() {
   }
 
   useEffect(() => {
+    setMounted(true);
     load();
   }, []);
 
@@ -138,7 +140,7 @@ export function SetupChecklist() {
         ))}
       </ul>
 
-      {data ? (
+      {data && mounted ? (
         <div className="mt-4 text-xs text-muted-foreground">
           Last checked: {new Date(data.timestamp).toLocaleString()}
         </div>
