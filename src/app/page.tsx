@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { SetupChecklist } from "@/components/setup-checklist";
 import { useDiagnostics } from "@/hooks/use-diagnostics";
 import { StarterPromptModal } from "@/components/starter-prompt-modal";
-import { Video, Shield, Database, Palette, Bot } from "lucide-react";
+import { Shield, Database, Palette, Bot } from "lucide-react";
 
 export default function Home() {
   const { isAuthReady, isAiReady, loading } = useDiagnostics();
@@ -22,34 +22,12 @@ export default function Home() {
             </h1>
           </div>
           <h2 className="text-2xl font-semibold text-muted-foreground">
-            Fredericton New Brunswick's Premium Automation and AI Services Provider
+            Fredericton New Brunswick&apos;s Premium Automation and AI Services Provider
           </h2>
           <p className="text-xl text-muted-foreground">
             A complete agentic coding boilerplate with authentication, database, AI
             integration, and modern tooling for building AI-powered applications
           </p>
-        </div>
-
-        {/* YouTube Tutorial Video */}
-        <div className="space-y-4">
-          <h3 className="text-2xl font-semibold flex items-center justify-center gap-2">
-            <Video className="h-6 w-6" />
-            Video Tutorial
-          </h3>
-          <p className="text-muted-foreground">
-            Watch the complete walkthrough of this agentic coding boilerplate:
-          </p>
-          <div className="relative w-full max-w-3xl mx-auto">
-            <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg border">
-              <iframe
-                className="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/T0zFZsr_d0Q"
-                title="Agentic Coding Boilerplate Tutorial"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
