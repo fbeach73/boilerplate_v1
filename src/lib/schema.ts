@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer, decimal } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -48,4 +48,75 @@ export const verification = pgTable("verification", {
   expiresAt: timestamp("expiresAt").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
   updatedAt: timestamp("updatedAt").defaultNow(),
+});
+
+// Product categories (AI Automation, Hosting, Custom Automations, Content Creation)
+export const category = pgTable("category", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  slug: text("slug").notNull().unique(),
+  description: text("description"),
+  displayOrder: integer("displayOrder").notNull().default(0),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+});
+
+// Products/Services
+export const product = pgTable("product", {
+  id: text("id").primaryKey(),
+  categoryId: text("categoryId")
+    .notNull()
+    .references(() => category.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  slug: text("slug").notNull().unique(),
+  shortDescription: text("shortDescription"),
+  fullDescription: text("fullDescription"),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  imageUrl: text("imageUrl"),
+  featured: boolean("featured").notNull().default(false),
+  active: boolean("active").notNull().default(true),
+  displayOrder: integer("displayOrder").notNull().default(0),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+});
+
+// Product resources (files, docs, etc.) accessible after purchase
+export const productResource = pgTable("productResource", {
+  id: text("id").primaryKey(),
+  productId: text("productId")
+    .notNull()
+    .references(() => product.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  description: text("description"),
+  fileUrl: text("fileUrl"),
+  resourceType: text("resourceType").notNull(), // 'file', 'link', 'document', etc.
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+});
+
+// Orders
+export const order = pgTable("order", {
+  id: text("id").primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  totalAmount: decimal("totalAmount", { precision: 10, scale: 2 }).notNull(),
+  status: text("status").notNull().default("pending"), // 'pending', 'completed', 'cancelled'
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+});
+
+// Order items
+export const orderItem = pgTable("orderItem", {
+  id: text("id").primaryKey(),
+  orderId: text("orderId")
+    .notNull()
+    .references(() => order.id, { onDelete: "cascade" }),
+  productId: text("productId")
+    .notNull()
+    .references(() => product.id),
+  productName: text("productName").notNull(), // Store name in case product is deleted
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  quantity: integer("quantity").notNull().default(1),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
 });
